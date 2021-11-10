@@ -21,3 +21,15 @@ after_success:
   - docker push tingjun/multi-nginx
   - docker push tingjun/multi-server
   - docker push tingjun/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  app: "multi-docker-practice"
+  env: "Multidockerpractice-env"
+  bucket_name: "elasticbeanstalk-us-east-1-496588348251" # automatically created by EBS
+  bucket_path: "docker-multi" # a folder for this app in the bucket, created when first deploy
+  on:
+    branch: master # deploy when we push to master
